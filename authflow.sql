@@ -9,6 +9,12 @@ CREATE TABLE USERS (
     updated_at DATE DEFAULT CURRENT_TIMESTAMP 
 );
 
+ALTER TABLE USERS DROP COLUMN username;
+ALTER TABLE USERS DROP COLUMN full_name;
+
+SELECT * FROM USERS;
+
+
 INSERT INTO USERS (email, username, password_hash, full_name, is_email_verified) VALUES
 ('anggi@email.com', 'anggi123', '$2b$10$dXE8flr8wtv4b/C59Jk39O0unjs5EeGZHmYq85ETd2Y5al8aL7PAW', 'Anggi Prayoga', TRUE),
 ('ari@email.com', 'ari456', '$2b$10$iUUocTtBfsrzWWOlOl58qufrZNULRl/UzAtdTLGJVAG3gGn5XzQSy', 'Ari Eka Saputra', FALSE),
@@ -57,6 +63,16 @@ CREATE TABLE LOGIN_ATTEMPTS (
     FOREIGN KEY (user_id) REFERENCES USERS(id) ON DELETE SET NULL
 );
 
+CREATE TABLE PROFILE (
+    user_id INT PRIMARY KEY,
+    username VARCHAR(100) NOT NULL UNIQUE,
+    first_name VARCHAR(25) NOT NULL,
+    last_name VARCHAR(25),
+    phone_number VARCHAR(20) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+
+    FOREIGN KEY (user_id) REFERENCES USERS(id) ON DELETE CASCADE
+);
 
 
 INSERT INTO EMAIL_VERIFICATION_TOKENS (user_id, token) VALUES

@@ -7,12 +7,18 @@ erDiagram
     USERS {
         int id PK
         string email UK 
-        string username UK 
         string password_hash 
-        string full_name
         boolean is_email_verified 
         datetime created_at
         datetime updated_at
+    }
+    
+    PROFILE {
+        int users_id FK
+        string username UK 
+        string first_name
+        string last_name
+        string phone_number
     }
     
     EMAIL_VERIFICATION_TOKENS {
@@ -50,7 +56,7 @@ erDiagram
         datetime attempted_at
     }
 
-
+    USERS ||--|| PROFILE : "has"
     USERS ||--o{ EMAIL_VERIFICATION_TOKENS : "has"
     USERS ||--o{ PASSWORD_RESET_TOKENS : "requests"
     USERS ||--o{ LOGIN_SESSIONS : "has"
